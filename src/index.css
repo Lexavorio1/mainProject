@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  /* cursor: url('./assets/skyrim/skyrim-cursor.png'), auto; */
+}
+
+/* ====== ТЕХНО-САМУРАЙ ГЛОБАЛКА ====== */
+
+/* Фон техно-ноир */
+body {
+  margin: 0;
+  padding: 0;
+  background: #0a0a0f;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0,255,255,0.04), transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(255,0,255,0.04), transparent 60%);
+  color: #e6e6ea;
+  font-family: "Roboto Mono", monospace;
+  letter-spacing: 0.5px;
+}
+
+/* Неоновая ховер-подсветка по всему UI */
+button, input {
+  transition: 0.25s ease;
+}
+
+

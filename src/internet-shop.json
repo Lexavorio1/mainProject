@@ -1,0 +1,115 @@
+{
+  "internet-shop": {
+    "videocards": {
+      "GTX": [
+        {
+          "id": 5,
+          "name": "GTX 1660",
+          "price": 300,
+          "title": "Бюджетная видеокарта для геймеров и творцов, отличная производительность за свои деньги.",
+          "stars": 3
+        },
+        {
+          "id": 6,
+          "name": "GTX 5060",
+          "price": 300,
+          "title": "Новая GTX для плавного гейминга в Full HD, с поддержкой современных игр.",
+          "stars": 3
+        }
+      ],
+      "AMD": [
+        {
+          "id": 7,
+          "name": "Radeon RX 550",
+          "price": 300,
+          "title": "Лёгкая видеокарта для киберспорта и мультимедиа, оптимальна для офиса и игр.",
+          "stars": 3
+        },
+        {
+          "id": 8,
+          "name": "Radeon RX 7600",
+          "price": 300,
+          "title": "Мощный AMD-чип для серьёзных игр и творчества, без компромиссов по графике.",
+          "stars": 3
+        }
+      ]
+    },
+    "videogames": {
+      "EA": [
+        {
+          "id": 1,
+          "name": "FIFA 2018",
+          "discount": true,
+          "procent": 100,
+          "img": "https://library.sportingnews.com/2021-08/fifa-18-world-cup-update_1muuluhdqyeshz1y22gbiw58s.jpg",
+          "title": "Патч на FIFA 2000 года. Собери команду мечты и сразись в легендарных матчах! Голы, дриблинг и эмоции – всё как в жизни, только без травм и штрафов.",
+          "stars": 1
+        },
+        {
+          "id": 2,
+          "name": "BattleField 2042",
+          "discount": true,
+          "procent": 100,
+          "img": "https://cdn1.epicgames.com/offer/52f57f57120c440fad9bfa0e6c279317/EGS_Battlefield2042_DICE_S1_2560x1440-4fd7701f78a23c971e429093fc1f6341",
+          "title": "Эпичные битвы будущего! Огромные карты, динамичные перестрелки и современная техника, старые баги, повестка",
+          "stars": 2
+        }
+      ],
+      "Ubisoft": [
+        {
+          "id": 3,
+          "name": "Assassin's creed Japs",
+          "discount": true,
+          "procent": 75,
+          "img": "https://gamebomb.ru/files/galleries/001/7/79/427100.jpg",
+          "title": "Погрузись в мир интриг и тайн. Паркур, скрытность, повестка и исторические события по мнению Ubisoft и секретных документов. Приключения ждут тебя!",
+          "stars": 3
+        }
+      ],
+      "CD Project Red": [
+        {
+          "id": 4,
+          "name": "The Witcher 3",
+          "discount": true,
+          "procent": 100,
+          "completed": true,
+          "img": "//avatars.mds.yandex.net/i?id=9208a3ebff271b3e1fe0b338465364ff_l-5424730-images-thumbs&n=13",
+          "title": "Вступи в эпическое фэнтези с Педральтом! Монстры, магия, интриги и неожиданные повороты сюжета — приготовься к настоящему приключению.",
+          "stars": 3
+        }
+      ]
+    },
+    "appliances": [
+      {
+        "id": 5,
+        "name": "Oka",
+        "discount": false,
+        "img": "//avatars.mds.yandex.net/i?id=9208a3ebff271b3e1fe0b338465364ff_l-5424730-images-thumbs&n=13",
+        "title": "sdfasfasfasfasdfadfafafasdfasdfas",
+        "stars": 3
+      }
+    ],
+    "headphones": {
+      "computer": [
+        {
+          "id": 6,
+          "name": "Oka Computer",
+          "discount": false,
+          "img": "//avatars.mds.yandex.net/i?id=9208a3ebff271b3e1fe0b338465364ff_l-5424730-images-thumbs&n=13",
+          "title": "sdfasfasfasfasdfadfafafasdfasdfas",
+          "stars": 3
+        }
+      ],
+      "phone": [
+        {
+          "id": 9,
+          "name": "Oka Phone",
+          "discount": false,
+          "img": "//avatars.mds.yandex.net/i?id=9208a3ebff271b3e1fe0b338465364ff_l-5424730-images-thumbs&n=13",
+          "title": "sdfasfasfasfasdfadfafafasdfasdfas",
+          "stars": 3
+        }
+      ]
+    }
+  }
+}

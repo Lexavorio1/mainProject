@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+/* === НЕОНОВАЯ ПАНЕЛЬ === */
+.appCalc {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+
+    background: #05070d;
+
+    border: 2px solid #00eaff;
+    border-radius: 20px;
+    box-shadow:
+        0 0 20px #00eaff,
+        0 0 60px #00eaff55,
+        inset 0 0 40px #00eaff33;
+
+    max-width: 420px;
+    margin: auto;
+}
+
+/* === Назад === */
+.backButton {
+    width: 200px;
+    top: 100px;
+    left: 20px;
+    background: rgba(0, 255, 255, 0.08);
+    border: 1px solid #00faff;
+    color: #00eaff;
+    padding: 10px 16px;
+    font-family: "Orbitron";
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.backButton:hover {
+    background: #00eaff;
+    color: #02040a;
+    box-shadow: 0 0 20px #00eaff;
+}
+
+/* === Экран === */
+.display {
+    width: 330px;
+    height: 140px;
+    background: #0a0d15;
+    border: 1px solid #00eaff66;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    padding: 18px;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 32px;
+    color: #00faff;
+    text-align: right;
+    box-shadow: inset 0 0 20px #00eaff33;
+}
+
+.display::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(0,255,255,0.06) 50%,
+        transparent 100%
+    );
+    animation: display-scan 4s linear infinite;
+}
+
+@keyframes display-scan {
+    0% { top: -130%; }
+    100% { top: 90%; }
+}
+
+/* === ГЛИТЧ === */
+.glitch {
+    animation: glitchAnim 0.15s linear infinite;
+}
+
+@keyframes glitchAnim {
+    0% { text-shadow: 3px 0 red, -3px 0 cyan; }
+    50% { text-shadow: -3px 0 magenta, 3px 0 yellow; }
+    100% { text-shadow: 2px 0 cyan, -2px 0 red; }
+}
+
+/* === Кнопки === */
+.buttons {
+    width: 330px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.buttons button {
+    height: 55px;
+    border: 1px solid #00eaff;
+    background: rgba(0, 255, 255, 0.05);
+    color: #00eaff;
+    border-radius: 8px;
+    font-family: "Orbitron";
+    font-size: 18px;
+    cursor: pointer;
+
+    transition: 0.08s ease-out;
+}
+
+/* === Терминальная анимация нажатия === */
+.buttons button:active {
+    transform: scale(0.92);
+    filter: brightness(180%);
+    box-shadow: 0 0 20px #00eaff;
+}
+
+/* === Панель истории === */
+.historyPanel {
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+    background: #090b12;
+    border: 1px solid #00eaff;
+    border-radius: 12px;
+    padding: 20px;
+    color: #00eaff;
+    font-family: "Share Tech Mono";
+    box-shadow: 0 0 30px #00eaff77;
+}
+
+.historyList {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    border-top: 1px solid #00eaff33;
+    border-bottom: 1px solid #00eaff33;
+}
+
+.historyItem {
+    padding: 6px 0;
+    border-bottom: 1px dashed #00eaff33;
+}
+
+.historyButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.historyButtons button {
+    flex: 1;
+    margin: 0 8px;
+    padding: 10px;
+    background: rgba(0,255,255,0.1);
+    border: 1px solid #00eaff;
+    color: #00eaff;
+    font-family: Orbitron;
+}
+
+.historyButtons button:hover {
+    background: #00eaff;
+    color: #000;
+}

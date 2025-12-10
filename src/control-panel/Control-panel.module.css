@@ -1,0 +1,46 @@
+.btns {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 15%;
+  gap: 6px;
+}
+
+.delete, .update {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid;
+  background: #10121a;
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* Удалить — красный неон */
+.delete {
+  color: #ff4d6d;
+  border-color: #ff4d6d;
+}
+.delete:hover {
+  background: #ff4d6d;
+  color: #0a0a0f;
+  box-shadow: 0 0 10px #ff4d6d;
+}
+
+/* Изменить — синий неон */
+.update {
+  color: #00d5ff;
+  border-color: #00d5ff;
+}
+.update:hover {
+  background: #00d5ff;
+  color: #0a0a0f;
+  box-shadow: 0 0 10px #00d5ff;
+}
+
+  @media(max-width: 600px) {
+    .btns {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 30%;
+    }
+  }
