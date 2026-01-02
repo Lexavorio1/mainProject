@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { useIsMobile, FullTextModal } from "../../mobile"
 
-export const AppTodos = ({ onBack }) => {
+export const AppTodos = () => {
   const dispatch = useDispatch()
   const { todoList, isLoading } = useSelector((state) => state.todosState)
 
@@ -63,7 +63,7 @@ export const AppTodos = ({ onBack }) => {
 
   return (
     <div className={styles.app}>
-      <button className={styles.backButton} onClick={onBack}> ← Назад</button>
+      
       <h1 className={styles.title}>Задачи</h1>
 
       <div className={styles['btns-sort-add']}>

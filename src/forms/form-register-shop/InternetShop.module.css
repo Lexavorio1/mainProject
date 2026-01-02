@@ -129,3 +129,249 @@
   color: #000;
   transform: scale(1.1);
 }
+.registerWrapper {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.registerForm h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.registerForm input {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d4d4d4;
+  font-size: 15px;
+}
+
+.registerForm input:focus {
+  border-color: #8c8cf5;
+  box-shadow: 0 0 0 3px rgba(140,140,245,0.25);
+}
+
+.registerForm span {
+  color: #d33;
+  font-size: 13px;
+}
+
+.registerForm button {
+  padding: 12px;
+  background: #8c8cf5;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.registerForm button:hover {
+  background: #7a7af0;
+}
+
+.discountPrice {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.discountBadge {
+  background: #ff4d4f;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.errorList span {
+  color: #d33;
+  font-size: 13px;
+}
+
+.heartButton {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.heartButton:hover {
+  transform: scale(1.2);
+}
+
+/* ===== STEAM PRICE STYLE ===== */
+
+
+.priceBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.newPrice {
+  color: #000;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.primary {
+  flex: 1;
+  background: #8c8cf5;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.secondary {
+  flex: 1;
+  background: #f3f3f3;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.productCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+  transition: .2s;
+  cursor: pointer;
+}
+
+.productCard:hover {
+  transform: translateY(-4px);
+}
+
+.block {
+  padding: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: #111;
+  border-radius: 16px;
+  padding: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  background: #1a1a1a;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.oldPrice {
+  text-decoration: line-through;
+  color: #777;
+  margin-right: 8px;
+}
+
+.categoryBtn {
+  padding: 20px;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #22d3ee);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.swiperWrapper {
+  position: relative;
+}
+
+.card {
+  position: relative;
+  background: #fff;
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  cursor: pointer;
+  transition: .2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.image {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.title {
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+.cardActions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+
+.iconBtn {
+  background: rgba(255,255,255,.95);
+  border: none;
+  border-radius: 50%;
+  padding: 6px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.iconBtn:hover {
+  transform: scale(1.15);
+}
+
+.priceSteam {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+    margin-top: 8px;
+}
+
+.discountPercent {
+  background: #ff4d4f;
+  color: #fff;
+  font-weight: 600;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+

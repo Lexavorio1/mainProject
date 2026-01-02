@@ -1,58 +1,51 @@
-import { useState } from "react"
-import { AppTodos, AppTic, AppCalc, AppInternetShop  } from "./App-main"
+import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import styles from './App.module.css'
 
 export const App = () => {
-    const [todos, setTodos] = useState(false)
-    const [tic, setTic] = useState(false)
-    const [calc, setCalc] = useState(false)
-    const [shop, setShop] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
 
-    return (
-        <>
-            {!todos && !tic && !calc && !shop &&(
-                <div className={styles.conteiner}>
-                    <button 
-                        onClick={() => setTodos(true)}
-                        className={styles.todos}
-                    >
-                        Список задач
-                    </button>
+  const isHome = location.pathname === '/'
 
-                    <button
-                        onClick={() => setTic(true)}
-                        className={styles.tic}
-                    >
-                        Крестики-нолики
-                    </button>
-                    <button
-                        onClick={() => setCalc(true)}
-                        className={styles.tic}
-                    >
-                        Калькулятор
-                    </button>
-                    <button
-                        onClick={() => setShop(true)}
-                        className={styles.tic}
-                    >
-                        Интернет магазин
-                    </button>
-                </div>
-            )}
+  return (
+    <div className={styles.container}>
+      {/* Верхняя панель */}
+      <header className={styles.header}>
+        {!isHome && (
+          <button
+            className={styles.back}
+            onClick={() => navigate(-1)}
+          >
+            ← Назад
+          </button>
+        )}
+      </header>
 
-            {todos && (
-                <AppTodos onBack={() => setTodos(false)} />
-            )}
+      {/* Главная страница */}
+      {isHome && (
+        <div className={styles.menu}>
+          <button onClick={() => navigate('/calculator')}>
+            Калькулятор
+          </button>
 
-            {tic && (
-                <AppTic onBack={() => setTic(false)} />
-            )}
-            {calc && (
-                <AppCalc onBack={() => setCalc(false)} />
-            )}
-            {shop && (
-                <AppInternetShop onBack={() => setShop(false)} />
-            )}
-        </>
-    )
+          <button onClick={() => navigate('/todos')}>
+            Список задач
+          </button>
+
+          <button onClick={() => navigate('/tic')}>
+            Крестики-нолики
+          </button>
+
+          <button onClick={() => navigate('/shop')}>
+            Интернет-магазин
+          </button>
+        </div>
+      )}
+
+      {/* Контент */}
+      <main className={styles.content}>
+        <Outlet />
+      </main>
+    </div>
+  )
 }

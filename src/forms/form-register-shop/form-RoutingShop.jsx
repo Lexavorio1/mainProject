@@ -1,155 +1,118 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { axiosGetInternetShop } from '../../components/components-internetShop/axios-get-internetShop'
-import { DetailsShop } from '../details-shop.jsx/details-shop'
 import styles from './InternetShop.module.css'
 
 export const RoutingInternetShop = ({ searchValue }) => {
   const dispatch = useDispatch()
-  const shopState = useSelector(state => state.shopState)
-
-  const [selectedCategory, setSelectedCategory] = useState(null)
-  const [selectedSubcategory, setSelectedSubcategory] = useState(null)
-  const [selectedProduct, setSelectedProduct] = useState(null)
+  const navigate = useNavigate()
+  const { shopList, isLoading, error } = useSelector(s => s.shopState)
 
   useEffect(() => {
-    dispatch(axiosGetInternetShop())
-  }, [dispatch])
+    if (!shopList?.length) {
+      dispatch(axiosGetInternetShop())
+    }
+  }, [dispatch, shopList])
 
-  const products = shopState.shopList?.[0] || {}
+  const products = shopList?.[0] || {}
 
-  // Плоский список для поиска
+  const categoryNames = {
+    videogames: 'Видеоигры',
+    videocards: 'Видеокарты',
+    appliances: 'Бытовая техника',
+    headphones: 'Наушники'
+  }
+
+  /* ---------- ПОИСК ---------- */
   const flatItems = useMemo(() => {
     const arr = []
+
     Object.entries(products).forEach(([category, group]) => {
       if (Array.isArray(group)) {
-        group.forEach(item => arr.push({ ...item, __category: category, __subcategory: item.id }))
+        group.forEach(item =>
+          arr.push({ ...item, __category: category })
+        )
       } else {
-        Object.entries(group).forEach(([sub, items]) => {
-          items.forEach(item => arr.push({ ...item, __category: category, __subcategory: sub }))
+        Object.entries(group).forEach(([brand, items]) => {
+          items.forEach(item =>
+            arr.push({
+              ...item,
+              __category: category,
+              __brand: brand
+            })
+          )
         })
       }
     })
+
     return arr
   }, [products])
 
   const searchResults = useMemo(() => {
     if (!searchValue) return []
     const lower = searchValue.toLowerCase()
-    return flatItems.filter(item => item.name.toLowerCase().includes(lower))
-  }, [flatItems, searchValue])
+    return flatItems.filter(i =>
+      i.name.toLowerCase().includes(lower)
+    )
+  }, [searchValue, flatItems])
 
-  const categoryNames = {
-    videocards: 'Видеокарты',
-    videogames: 'Видеоигры',
-    appliances: 'Бытовая техника',
-    headphones: 'Наушники'
-  }
+  if (isLoading) return <p className={styles.loading}>Загрузка…</p>
+  if (error) return <p className={styles.error}>Ошибка: {error}</p>
 
-  // fallback
-  if (shopState.isLoading) return <div className={styles.loading}>Загрузка...</div>
-  if (shopState.error) return <div className={styles.error}>Ошибка: {shopState.error}</div>
-  if (!shopState.shopList?.length) return <div className={styles.empty}>Нет товаров</div>
-
-  // --- JSX ---
-  if (selectedProduct) {
-    return <DetailsShop product={selectedProduct} onBack={() => setSelectedProduct(null)} />
-  }
-
+  /* ---------- ПОИСК ---------- */
   if (searchValue) {
     return (
-      <div>
-        <h3>Результаты поиска: "{searchValue}"</h3>
-        {searchResults.length === 0 ? (
-          <div className={styles.empty}>Ничего не найдено</div>
-        ) : (
-          <ul className={styles.items}>
-            {searchResults.map(item => (
-              <li key={`${item.__category}-${item.id}`}>
-                <button
-                  className={styles.productButton}
-                  onClick={() => setSelectedProduct(item)}
-                >
-                  {item.name} ({item.price || '-'})
-                </button>
+      <div className={styles.block}>
+        <h3>🔍 Результаты поиска</h3>
+
+        <ul className={styles.grid}>
+          {searchResults.map(item => {
+            const finalPrice = item.discount
+              ? Math.round(item.price * (1 - item.procent / 100))
+              : item.price
+
+            return (
+              <li
+                key={item.id}
+                className={styles.card}
+                onClick={() => navigate(`/shop/product/${item.id}`)}
+              >
+                <h4>{item.name}</h4>
+
+                {item.discount && (
+                  <span className={styles.oldPrice}>
+                    {item.price} ₽
+                  </span>
+                )}
+
+                <span className={styles.price}>
+                  {finalPrice} ₽
+                </span>
               </li>
-            ))}
-          </ul>
-        )}
+            )
+          })}
+        </ul>
       </div>
     )
   }
 
-  if (!selectedCategory) {
-    return (
-      <div className={styles.categories}>
-        <h3>Категории</h3>
-        {Object.keys(categoryNames).map(cat => (
+  /* ---------- КАТЕГОРИИ ---------- */
+  return (
+    <div className={styles.block}>
+      <h3>Категории</h3>
+
+      <div className={styles.grid}>
+        {Object.keys(products).map(cat => (
           <button
             key={cat}
-            className={styles.categoryButton}
-            onClick={() => {
-              setSelectedCategory(cat)
-              setSelectedSubcategory(null)
-            }}
+            className={styles.categoryBtn}
+            onClick={() => navigate(`/shop/category/${cat}`)}
           >
-            {categoryNames[cat]}
+            {categoryNames[cat] || cat}
           </button>
         ))}
       </div>
-    )
-  }
-
-  if (!selectedSubcategory) {
-    const subcategories = Array.isArray(products[selectedCategory])
-      ? products[selectedCategory].map(i => i.id)
-      : Object.keys(products[selectedCategory])
-
-    return (
-      <>
-        <button className={styles.backButtonSmall} onClick={() => setSelectedCategory(null)}>
-          ← Назад к категориям
-        </button>
-        <h4>Подкатегории ({categoryNames[selectedCategory]})</h4>
-        <ul className={styles.subcategories}>
-          {subcategories.map(sub => (
-            <li key={sub}>
-              <button
-                className={styles.productButton}
-                onClick={() => setSelectedSubcategory(sub)}
-              >
-                {sub}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </>
-    )
-  }
-
-  // товары выбранной подкатегории
-  const items = Array.isArray(products[selectedCategory])
-    ? products[selectedCategory]
-    : products[selectedCategory][selectedSubcategory] || []
-
-  return (
-    <>
-      <button className={styles.backButtonSmall} onClick={() => setSelectedSubcategory(null)}>
-        ← Назад к подкатегориям
-      </button>
-      <h4>Товары ({selectedSubcategory})</h4>
-      <ul className={styles.items}>
-        {items.map(item => (
-          <li key={item.id}>
-            <button
-              className={styles.productButton}
-              onClick={() => setSelectedProduct(item)}
-            >
-              {item.name} ({item.price || '-'})
-            </button>
-          </li>
-        ))}
-      </ul>
-    </>
+    </div>
   )
 }

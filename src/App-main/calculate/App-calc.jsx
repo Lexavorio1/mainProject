@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './App-calc.module.css';
 import { evaluate } from 'mathjs';
 
-export const AppCalc = ({ onBack }) => {
+export const AppCalc = () => {
     const [expr, setExpr] = useState("");
     const [error, setError] = useState("");
     const [history, setHistory] = useState([]);
@@ -34,9 +34,6 @@ export const AppCalc = ({ onBack }) => {
 
     return (
         <div className={styles.appCalc}>
-            <button className={styles.backButton} onClick={onBack}>
-                ← Назад
-            </button>
 
             <div className={`${styles.display} ${error === 'error-glitch' ? styles.glitch : ""}`}>
                 {error && error !== "error-glitch" ? error : expr || "0"}

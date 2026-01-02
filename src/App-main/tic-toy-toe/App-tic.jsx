@@ -3,7 +3,7 @@ import { Field, Info } from '../../components'
 import { Restart } from '../../actions'
 import { useDispatch } from 'react-redux'
 
-export const AppTic = ({ onBack }) => {
+export const AppTic = () => {
     const dispatch = useDispatch()
     const restart = () => {
     dispatch(Restart())
@@ -12,7 +12,7 @@ export const AppTic = ({ onBack }) => {
   return (
 
       <div className={styles.game}>
-        <button className={styles.backButton} onClick={onBack}> ← Назад</button>
+
         <Info />
         <button onClick={restart}>Начать заново</button>
         <Field />

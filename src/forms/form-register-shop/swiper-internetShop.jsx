@@ -5,12 +5,20 @@ import 'swiper/css/navigation'
 
 import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useAuth } from '../../components'
+import {
+  toggleFavorite,
+  syncCart
+} from '../../actions'
 import { axiosGetInternetShop } from '../../components/components-internetShop/axios-get-internetShop'
 import styles from './InternetShop.module.css'
 
 export const SwiperInternetShop = ({ onSelectProduct }) => {
   const dispatch = useDispatch()
-  const { shopList, isLoading, error } = useSelector(s => s.shopState)
+  const { user, isAuth } = useAuth()
+  const { shopList, isLoading, error } = useSelector(
+    state => state.shopState
+  )
 
   useEffect(() => {
     dispatch(axiosGetInternetShop())
@@ -18,15 +26,32 @@ export const SwiperInternetShop = ({ onSelectProduct }) => {
 
   const products = shopList?.[0] || {}
 
-  const discountItems = useMemo(() => {
-    let arr = []
+  const addToCart = item => {
+    if (!user) return
 
-    Object.entries(products).forEach(([category, group]) => {
+    const exists = user.cart.some(i => i.id === item.id)
+
+    const newCart = exists
+      ? user.cart
+      : [...user.cart, { ...item, count: 1 }]
+
+    dispatch(syncCart(user.id, newCart))
+  }
+
+  // товары со скидкой
+  const discountItems = useMemo(() => {
+    const arr = []
+
+    Object.values(products).forEach(group => {
       if (Array.isArray(group)) {
-        group.forEach(item => item.discount && arr.push({ ...item, __category: category }))
+        group.forEach(item => {
+          if (item.discount && item.procent) arr.push(item)
+        })
       } else {
         Object.values(group).forEach(items =>
-          items.forEach(item => item.discount && arr.push({ ...item, __category: category }))
+          items.forEach(item => {
+            if (item.discount && item.procent) arr.push(item)
+          })
         )
       }
     })
@@ -39,37 +64,87 @@ export const SwiperInternetShop = ({ onSelectProduct }) => {
   if (!discountItems.length) return null
 
   return (
-    <div style={{ position: "relative" }}>
-      <div className="swiper-button-prev"></div>
-      <div className="swiper-button-next"></div>
+    <div className={styles.swiperWrapper}>
+      <div className="swiper-button-prev" />
+      <div className="swiper-button-next" />
 
       <Swiper
         modules={[Navigation]}
         navigation={{
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
         }}
         spaceBetween={20}
         slidesPerView={3}
       >
-        {discountItems.map(item => (
-          <SwiperSlide key={item.id}>
-            <div
-              className={styles.swiperSlideContent}
-              onClick={() => onSelectProduct(item)}
-              style={{ cursor: 'pointer' }}
-            >
-              {item.img && <img src={item.img} alt={item.name} />}
-              <h3>{item.name}</h3>
-              {item.price && <p>Цена: {item.price} ₽</p>}
-              {item.procent && (
-                <p style={{ color: "red", fontWeight: "bold" }}>
-                  Скидка: {item.procent}%
-                </p>
-              )}
-            </div>
-          </SwiperSlide>
-        ))}
+        {discountItems.map(item => {
+          const inCart = user?.cart?.some(i => i.id === item.id)
+          const inFav = user?.favorites?.some(i => i.id === item.id)
+
+          const finalPrice = Math.round(
+            item.price * (1 - item.procent / 100)
+          )
+
+          return (
+            <SwiperSlide key={item.id}>
+              <div
+                className={styles.card}
+                onClick={() => onSelectProduct(item)}
+              >
+                {/* ИКОНКИ */}
+                {isAuth && (
+                  <div
+                    className={styles.cardActions}
+                    onClick={e => e.stopPropagation()}
+                  >
+                    <button
+                    className={styles.iconBtn}
+                    title="В корзину"
+                    onClick={() => addToCart(item)}
+                  >
+                    {inCart ? '✅' : '🛒'}
+                  </button>
+
+                    <button
+                      className={styles.iconBtn}
+                      title="В избранное"
+                      onClick={() =>
+                        dispatch(toggleFavorite(item))
+                      }
+                    >
+                      {inFav ? '❤️' : '🤍'}
+                    </button>
+                  </div>
+                )}
+
+                {item.img && (
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    className={styles.image}
+                  />
+                )}
+
+                <h3 className={styles.title}>{item.name}</h3>
+
+                <div className={styles.priceSteam}>
+                  <div className={styles.discountPercent}>
+                    −{item.procent}%
+                  </div>
+
+                  <div className={styles.priceBlock}>
+                    <span className={styles.oldPrice}>
+                      {item.price} ₽
+                    </span>
+                    <span className={styles.newPrice}>
+                      {finalPrice} ₽
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          )
+        })}
       </Swiper>
     </div>
   )

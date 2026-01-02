@@ -1,0 +1,38 @@
+import { useDispatch, useSelector } from 'react-redux'
+import { authLogin, authLogout } from '../../actions'
+import { useEffect } from 'react'
+
+export const useAuth = () => {
+  const dispatch = useDispatch()
+  const { user, isAuth } = useSelector(
+    state => state.authUserShopState
+  )
+
+  // Автовход при перезагрузке
+  useEffect(() => {
+    const savedUser = localStorage.getItem('authUser')
+    if (savedUser) {
+      dispatch(authLogin(JSON.parse(savedUser)))
+    }
+  }, [dispatch])
+
+  useEffect(() => {
+  if (user) {
+    localStorage.setItem('authUser', JSON.stringify(user))
+  }
+}, [user])
+
+  const login = (userData, remember) => {
+    dispatch(authLogin(userData))
+    if (remember) {
+      localStorage.setItem('authUser', JSON.stringify(userData))
+    }
+  }
+
+  const logout = () => {
+    dispatch(authLogout())
+    localStorage.removeItem('authUser')
+  }
+
+  return { user, isAuth, login, logout }
+}
