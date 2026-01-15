@@ -1,18 +1,16 @@
 import { Routes, Route } from 'react-router-dom'
 import { App } from './App'
-
-
 import { AppTodos, AppTic, AppCalc, AppInternetShop } from './App-main'
-
-
-import { RoutingInternetShop } from './forms' 
-import { 
+import { RoutingInternetShop } from './forms'
+import { RequireRole } from './forms/roles-userShop/RequireRole'
+import { AdminPanel, DevPanel } from './forms/roles-userShop/panels'
+import {
   ProductPage,
   CategoryPage,
-  ShopFilterPage, 
-  FilteredProductsPage,
-  FilteredPage,
-  ProfilePage
+  FilterPage,
+  ProfilePage,
+  ResultsPage,
+  OrderPage
 } from './App-main/internet-shop/pages'
 import { FormRegisterShop } from './forms'
 
@@ -29,16 +27,35 @@ export const AppRoutes = () => {
         {/* 🛒 Интернет-магазин */}
         <Route path="shop" element={<AppInternetShop />}>
           <Route index element={<RoutingInternetShop />} />
+
           <Route path="login" element={<FormRegisterShop mode="login" />} />
-  <Route path="register" element={<FormRegisterShop mode="register" />} />
-  <Route path="/shop/filter" element={<FilteredPage />} />
-  <Route path="/shop/filter" element={<ShopFilterPage />} />
-<Route path="/shop/filtered" element={<FilteredProductsPage />} />
+          <Route path="register" element={<FormRegisterShop mode="register" />} />
+
+          <Route path="filter" element={<FilterPage />} />
+          <Route path="results" element={<ResultsPage />} />
 
           <Route path="profile" element={<ProfilePage />} />
           <Route path="product/:id" element={<ProductPage />} />
+          <Route path="order" element={<OrderPage />} />
 
-          {/* category → brand → model */}
+          <Route
+            path="admin"
+            element={
+              <RequireRole allow={['admin', 'developer']}>
+                <AdminPanel />
+              </RequireRole>
+            }
+          />
+
+          <Route
+            path="dev"
+            element={
+              <RequireRole allow={['developer']}>
+                <DevPanel />
+              </RequireRole>
+            }
+          />
+
           <Route
             path="category/:category/:brand?/:model?"
             element={<CategoryPage />}

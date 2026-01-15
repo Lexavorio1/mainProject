@@ -153,3 +153,35 @@ p {
   font-size: 30px;
   color: black;
 }
+
+.devBtns {
+  display: flex;
+  gap: 8px;
+  margin-left: 10px;
+}
+
+.devUpdate {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  background: #eef2ff;
+  color: #4338ca;
+  cursor: pointer;
+}
+
+.devUpdate:hover {
+  background: #e0e7ff;
+}
+
+.devDelete {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  background: #fee2e2;
+  color: #b91c1c;
+  cursor: pointer;
+}
+
+.devDelete:hover {
+  background: #fecaca;
+}

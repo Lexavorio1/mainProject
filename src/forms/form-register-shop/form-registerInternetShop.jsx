@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useAddShopUser, useAuth } from '../../components'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
+/* ===== PASSWORD RULES ===== */
 const passwordRules = yup
   .string()
   .min(8, 'Минимум 8 символов')
@@ -13,12 +15,16 @@ const passwordRules = yup
   .matches(/[0-9]/, 'Хотя бы одна цифра')
   .matches(/[!@#$%^&*]/, 'Хотя бы один спецсимвол')
 
+/* ===== SCHEMAS ===== */
 const schemaRegister = yup.object({
   firstName: yup.string().required('Имя обязательно'),
   lastName: yup.string().required('Фамилия обязательна'),
-  age: yup.number().min(12, 'Минимум 12 лет'),
+  age: yup
+    .number()
+    .typeError('Введите возраст')
+    .min(12, 'Минимум 12 лет'),
   login: yup.string().required('Логин обязателен'),
-  password: passwordRules.required(),
+  password: passwordRules.required('Пароль обязателен'),
   remember: yup.boolean()
 })
 
@@ -28,14 +34,18 @@ const schemaLogin = yup.object({
   remember: yup.boolean()
 })
 
-export const FormRegisterShop = ({ mode, close }) => {
+export const FormRegisterShop = ({ mode, close = () => {} }) => {
   const schema = mode === 'login' ? schemaLogin : schemaRegister
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm({ resolver: yupResolver(schema) })
+  } = useForm({
+    resolver: yupResolver(schema, { abortEarly: false })
+  })
 
   const users = useSelector(s => s.authUserShopState.usersList)
   const { addUser } = useAddShopUser()
@@ -44,6 +54,7 @@ export const FormRegisterShop = ({ mode, close }) => {
   const onSubmit = async data => {
     const { remember, ...rest } = data
 
+    /* ===== LOGIN ===== */
     if (mode === 'login') {
       const user = users.find(
         u => u.login === rest.login && u.password === rest.password
@@ -56,20 +67,31 @@ export const FormRegisterShop = ({ mode, close }) => {
 
       login(user, remember)
       close()
+      navigate('/shop/profile')
       return
     }
 
-    const newUser = await addUser({
+    /* ===== REGISTER ===== */
+    const createdUser = await addUser({
       ...rest,
+      role: 'user',
       cart: [],
       favorites: [],
-      orders: []
+      orders: [],
+      createdAt: Date.now()
     })
 
-    if (newUser) {
-      login(newUser, remember)
-      close()
-    }
+    if (!createdUser) return
+
+    // ⬅️ КЛЮЧЕВО: сохраняем backend-user
+    dispatch({
+      type: 'AUTH_GETUSERS',
+      payload: [...users, createdUser]
+    })
+
+    login(createdUser, remember)
+    close()
+    navigate('/shop/profile')
   }
 
   return (
@@ -78,7 +100,10 @@ export const FormRegisterShop = ({ mode, close }) => {
         ← Назад
       </button>
 
-      <form className={styles.registerForm} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className={styles.registerForm}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h2>{mode === 'login' ? 'Вход' : 'Регистрация'}</h2>
 
         {mode === 'register' && (
@@ -89,7 +114,11 @@ export const FormRegisterShop = ({ mode, close }) => {
             <input {...register('lastName')} placeholder="Фамилия" />
             <span>{errors.lastName?.message}</span>
 
-            <input type="number" {...register('age')} placeholder="Возраст" />
+            <input
+              type="number"
+              {...register('age')}
+              placeholder="Возраст"
+            />
             <span>{errors.age?.message}</span>
           </>
         )}
@@ -98,11 +127,9 @@ export const FormRegisterShop = ({ mode, close }) => {
         <span>{errors.login?.message}</span>
 
         <input type="password" {...register('password')} placeholder="Пароль" />
-        {errors.password && (
-          <div className={styles.errorList}>
-            <span>{errors.password.message}</span>
-          </div>
-        )}
+        <span>{errors.password?.message}</span>
+
+        
 
         <label>
           <input type="checkbox" {...register('remember')} /> Запомнить меня

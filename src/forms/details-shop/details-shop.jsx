@@ -1,4 +1,5 @@
 import styles from './Details.module.css'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../components'
 import { useDispatch } from 'react-redux'
 import {
@@ -6,9 +7,10 @@ import {
   syncCart
 } from '../../actions'
 
-export const DetailsShop = ({ product, onBack }) => {
+export const DetailsShop = ({ product }) => {
   const dispatch = useDispatch()
   const { isAuth, user } = useAuth()
+    const navigate = useNavigate()
 
   if (!product) return null
 
@@ -34,14 +36,14 @@ export const DetailsShop = ({ product, onBack }) => {
 
   return (
     <div className={styles.productDetail}>
-      <button className={styles.backButtonSmall} onClick={onBack}>
+      <button className={styles.backButtonSmall} onClick={() => navigate(-1)}>
         ← Назад
       </button>
 
       <h2>{product.name}</h2>
 
       {product.img && (
-        <img src={product.img} alt={product.name} width="300" />
+        <img src={product.img} alt={product.name} width="300" height="200" />
       )}
 
       <h2 className={styles.stars}>Средняя оценка: {product.stars}/10</h2>

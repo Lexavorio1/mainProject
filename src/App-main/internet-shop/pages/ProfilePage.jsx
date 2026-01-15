@@ -14,7 +14,7 @@ export const ProfilePage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const shop = useSelector(s => s.shopState.shopList?.[0])
+  const shopList = useSelector(s => s.shopState.shopList)
 
   useEffect(() => {
     if (!isAuth) navigate('/')
@@ -22,40 +22,65 @@ export const ProfilePage = () => {
 
   if (!user) return <p>Загрузка...</p>
 
+  const cart = Array.isArray(user.cart) ? user.cart : []
+  const favorites = Array.isArray(user.favorites)
+    ? user.favorites
+    : []
+  const orders = Array.isArray(user.orders) ? user.orders : []
+
   const getStock = id => {
-    const all = Object.values(shop || {}).flatMap(g =>
-      Array.isArray(g) ? g : Object.values(g).flat()
+    const all = Object.values(shopList?.[0] || {}).flatMap(
+      group =>
+        Array.isArray(group)
+          ? group
+          : Object.values(group).flat()
     )
+
     return all.find(p => p.id === id)?.amount ?? 0
   }
 
-  const total = user.cart.reduce(
+  const total = cart.reduce(
     (sum, i) =>
-      sum + i.price * (1 - i.procent / 100) * i.count,
+      sum + i.price * (1 - (i.procent || 0) / 100) * i.count,
     0
   )
 
   return (
     <div className={styles.profile}>
-      <button onClick={() => navigate(-1)}>← Назад</button>
+      <button
+        className={styles.backBtn}
+        onClick={() => navigate(-1)}
+      >
+        ← Назад
+      </button>
 
-      <h2>{user.firstName}</h2>
+      <h2>{user.firstName || user.login}</h2>
 
+      {/* 🛒 КОРЗИНА */}
       <section>
         <h3>🛒 Корзина</h3>
 
-        {user.cart.length ? (
+        {cart.length ? (
           <>
-            {user.cart.map(item => {
+            {cart.map(item => {
               const stock = getStock(item.id)
 
               return (
                 <div key={item.id} className={styles.cartItem}>
-                  <span>{item.name}</span>
+                  <span
+                    className={styles.itemLink}
+                    onClick={() =>
+                      navigate(`/shop/product/${item.id}`)
+                    }
+                  >
+                    {item.name}
+                  </span>
 
                   <div className={styles.counter}>
                     <button
-                      onClick={() => dispatch(decrementCart(item.id))}
+                      onClick={() =>
+                        dispatch(decrementCart(item.id))
+                      }
                       disabled={item.count <= 1}
                     >
                       −
@@ -64,19 +89,27 @@ export const ProfilePage = () => {
                     <span>{item.count}</span>
 
                     <button
-                      onClick={() => dispatch(incrementCart(item.id))}
+                      onClick={() =>
+                        dispatch(incrementCart(item.id))
+                      }
                       disabled={item.count >= stock}
                     >
                       +
                     </button>
                   </div>
 
-                  <span>
-                    {item.price * (1 - item.procent / 100) * item.count} ₽
+                  <span className={styles.price}>
+                    {item.price *
+                      (1 - (item.procent || 0) / 100) *
+                      item.count}{' '}
+                    ₽
                   </span>
 
                   <button
-                    onClick={() => dispatch(removeFromCart(item.id))}
+                    className={styles.removeBtn}
+                    onClick={() =>
+                      dispatch(removeFromCart(item.id))
+                    }
                   >
                     ✕
                   </button>
@@ -84,24 +117,113 @@ export const ProfilePage = () => {
               )
             })}
 
-            <div className={styles.total}>Итого: {total} ₽</div>
+            <div className={styles.total}>
+              Итого: {total} ₽
+            </div>
+
+            <button
+              className={styles.buyBtn}
+              onClick={() => navigate('/shop/order')}
+            >
+              Купить
+            </button>
           </>
         ) : (
-          <p>Корзина пуста</p>
+          <p className={styles.empty}>Корзина пуста</p>
         )}
       </section>
 
+      {/* 📦 ИСТОРИЯ ПОКУПОК */}
+      <section>
+        <h3>📦 История покупок</h3>
+
+        {orders.length ? (
+          orders.map((order, idx) => (
+            <div key={idx} className={styles.order}>
+              <div className={styles.orderDate}>
+                🕒 {order.date}
+              </div>
+
+              {/* 🔹 СТАРЫЙ ФОРМАТ */}
+              {'productId' in order && (
+                <div
+                  className={styles.orderItem}
+                  onClick={() =>
+                    navigate(
+                      `/shop/product/${order.productId}`
+                    )
+                  }
+                >
+                  <span className={styles.orderName}>
+                    Товар #{order.productId}
+                  </span>
+                  <span>{order.price} ₽</span>
+                </div>
+              )}
+
+              {/* 🔹 НОВЫЙ ФОРМАТ (на будущее) */}
+              {Array.isArray(order.items) &&
+                order.items.map(item => (
+                  <div
+                    key={item.id}
+                    className={styles.orderItem}
+                    onClick={() =>
+                      navigate(
+                        `/shop/product/${item.id}`
+                      )
+                    }
+                  >
+                    <span className={styles.orderName}>
+                      {item.name}
+                    </span>
+                    <span>
+                      {item.count} ×{' '}
+                      {item.price *
+                        (1 -
+                          (item.procent || 0) / 100)}{' '}
+                      ₽
+                    </span>
+                  </div>
+                ))}
+
+              {'total' in order && (
+                <div className={styles.orderTotal}>
+                  Итого: {order.total} ₽
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <p className={styles.empty}>
+            История покупок пока пуста
+          </p>
+        )}
+      </section>
+
+      {/* ❤️ ИЗБРАННОЕ */}
       <section>
         <h3>❤️ Избранное</h3>
 
-        {user.favorites.length
-          ? user.favorites.map(i => (
-              <div className={styles.cartItem} key={i.id}>{i.name}</div>
-            ))
-          : <p>Пусто</p>}
+        {favorites.length ? (
+          favorites.map(item => (
+            <div
+              key={item.id}
+              className={styles.cartItem}
+              onClick={() =>
+                navigate(`/shop/product/${item.id}`)
+              }
+            >
+              {item.name}
+            </div>
+          ))
+        ) : (
+          <p className={styles.empty}>Пусто</p>
+        )}
       </section>
 
-      <button onClick={logout}>Выйти</button>
+      <button className={styles.logout} onClick={logout}>
+        Выйти
+      </button>
     </div>
   )
 }

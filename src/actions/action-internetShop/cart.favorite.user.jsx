@@ -5,6 +5,8 @@ import { api } from '../../components/components-internetShop/axios-shopUser'
 export const syncCart =
   (userId, cart) =>
   async dispatch => {
+    if (!userId) return
+
     await api.patch(`/users/${userId}`, { cart })
 
     dispatch({
@@ -57,6 +59,7 @@ export const toggleFavorite =
   product =>
   async (dispatch, getState) => {
     const { user } = getState().authUserShopState
+    if (!user?.id) return
 
     const exists = user.favorites.some(i => i.id === product.id)
 

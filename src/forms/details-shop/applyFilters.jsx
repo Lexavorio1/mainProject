@@ -1,11 +1,13 @@
-export const applyFilters = (products, filters) => {
-  let result = [...products]
+import { flattenShopList } from "./Flatten.shopList"
 
-  if (filters.priceFrom) {
+export const applyFilters = (shopList, filters) => {
+  let result = flattenShopList(shopList)
+
+  if (filters.priceFrom !== '' && filters.priceFrom != null) {
     result = result.filter(p => p.price >= Number(filters.priceFrom))
   }
 
-  if (filters.priceTo) {
+  if (filters.priceTo !== '' && filters.priceTo != null) {
     result = result.filter(p => p.price <= Number(filters.priceTo))
   }
 
@@ -18,11 +20,11 @@ export const applyFilters = (products, filters) => {
   }
 
   if (filters.sort === 'priceAsc') {
-    result.sort((a, b) => a.price - b.price)
+    result = [...result].sort((a, b) => a.price - b.price)
   }
 
   if (filters.sort === 'priceDesc') {
-    result.sort((a, b) => b.price - a.price)
+    result = [...result].sort((a, b) => b.price - a.price)
   }
 
   return result
