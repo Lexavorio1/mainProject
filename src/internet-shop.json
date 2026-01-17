@@ -118,7 +118,7 @@
           "price": 70000,
           "discount": false,
           "img": "https://avatars.mds.yandex.net/get-mpic/17717916/2a0000019b2c9b738717bad0de4c72148687/optimize",
-          "title": "sdfasfasfasfasdfadfafafasdfasdfas",
+          "title": "Холодильник LG GA-B419SLGL — прекрасный выбор для тех, кто ценит сочетание инноваций и надёжности. Он оснащён передовыми системами охлаждения, которые обеспечивают стабильную температуру по всему объёму камер. Эргономичное расположение полок и секций позволяет удобно размещать продукты любых размеров. Энергосберегающий режим помогает экономить электричество, а современный дизайн делает холодильник элегантным дополнением к интерьеру кухни.",
           "stars": 4,
           "amount": 1500
         }
@@ -130,7 +130,7 @@
           "price": 29000,
           "discount": false,
           "img": "https://60.img.avito.st/image/1/1.Oby3Fra4lVWBoRdYyU4usrC3l1MJtxdDgbqXVwe_nV8B.YAiSxwtIsVfgGMfbUACJXUBUjqvEDq_AXwL2fmk1I4I",
-          "title": "sdfasfasfasfasdfadfafafasdfasdfas",
+          "title": "Холодильник Ока-6М — это классическое решение для дома или квартиры. Он сочетает в себе вместительность и энергоэффективность, при этом оставаясь простым в обслуживании. Благодаря продуманной внутренней компоновке он легко вмещает как продукты ежедневного потребления, так и более объёмные позиции. Удобные полки, надёжный компрессор и низкий уровень шума делают его отличным выбором для тех, кто ценит практичность и умеренную цену.",
           "stars": 3,
           "amount": 1500
         }
@@ -175,20 +175,6 @@
       "password": "12Kaloed!",
       "cart": [
         {
-          "id": 6,
-          "name": "BattleField 2042",
-          "discount": true,
-          "price": 300,
-          "procent": 100,
-          "img": "https://cdn1.epicgames.com/offer/52f57f57120c440fad9bfa0e6c279317/EGS_Battlefield2042_DICE_S1_2560x1440-4fd7701f78a23c971e429093fc1f6341",
-          "title": "Эпичные битвы будущего! Огромные карты, динамичные перестрелки и современная техника, старые баги, повестка",
-          "stars": 2,
-          "amount": 5,
-          "__category": "videogames",
-          "__brand": "EA",
-          "count": 1
-        },
-        {
           "id": 5,
           "name": "FIFA 2018",
           "price": 300,
@@ -199,72 +185,116 @@
           "stars": 1,
           "amount": 6,
           "count": 1
+        },
+        {
+          "id": 10,
+          "name": "Ока-6М",
+          "price": 29000,
+          "discount": false,
+          "img": "https://60.img.avito.st/image/1/1.Oby3Fra4lVWBoRdYyU4usrC3l1MJtxdDgbqXVwe_nV8B.YAiSxwtIsVfgGMfbUACJXUBUjqvEDq_AXwL2fmk1I4I",
+          "title": "sdfasfasfasfasdfadfafafasdfasdfas",
+          "stars": 3,
+          "amount": 1500,
+          "__category": "appliances",
+          "__brand": "OKA",
+          "count": 65
         }
       ],
       "favorites": [
         {
-          "id": 11,
-          "name": "HyperX Cloud Core",
-          "price": 5490,
-          "discount": true,
-          "procent": 15,
-          "img": "https://cache3.youla.io/files/images/780_780/59/bd/59bd004dc15ae3a723764673.jpg",
-          "title": "Проводные игровые наушники с отличным микрофоном и объемным звуком.",
-          "stars": 10,
-          "amount": 120,
-          "__category": "headphones",
-          "__brand": "computer"
-        },
-        {
-          "id": 8,
-          "name": "The Witcher 3",
-          "discount": true,
-          "price": 300,
-          "procent": 100,
-          "completed": true,
-          "img": "//avatars.mds.yandex.net/i?id=9208a3ebff271b3e1fe0b338465364ff_l-5424730-images-thumbs&n=13",
-          "title": "Вступи в эпическое фэнтези с Педральтом! Монстры, магия, интриги и неожиданные повороты сюжета — приготовься к настоящему приключению.",
+          "id": 10,
+          "name": "Ока-6М",
+          "price": 29000,
+          "discount": false,
+          "img": "https://60.img.avito.st/image/1/1.Oby3Fra4lVWBoRdYyU4usrC3l1MJtxdDgbqXVwe_nV8B.YAiSxwtIsVfgGMfbUACJXUBUjqvEDq_AXwL2fmk1I4I",
+          "title": "sdfasfasfasfasdfadfafafasdfasdfas",
           "stars": 3,
-          "amount": 150,
-          "comments-users": [
-            {
-              "id": "1",
-              "firstName": "Alex",
-              "lastName": "Ivanov",
-              "age": 20,
-              "login": "alex_ivanov",
-              "comments": "Игра говна-пирога"
-            }
-          ],
-          "raiting": [
-            {
-              "id": "1",
-              "firstName": "Alex",
-              "lastName": "Ivanov",
-              "age": 20,
-              "login": "alex_ivanov",
-              "star": 1
-            }
-          ]
-        },
-        {
-          "id": 7,
-          "name": "Assassin's creed Japs",
-          "discount": true,
-          "price": 300,
-          "procent": 75,
-          "img": "https://gamebomb.ru/files/galleries/001/7/79/427100.jpg",
-          "title": "Погрузись в мир интриг и тайн. Паркур, скрытность, повестка и исторические события по мнению Ubisoft и секретных документов. Приключения ждут тебя!",
-          "stars": 3,
-          "amount": 5,
-          "__category": "videogames",
-          "__brand": "Ubisoft"
+          "amount": 1500,
+          "__category": "appliances",
+          "__brand": "OKA"
         }
       ],
-      "orders": [],
-      "createdAt": 1710000000000,
-      "banUntil": "permanent",
-      "banReason": "Фрод"
+      "orders": [
+        {
+          "id": "order_1768527267905",
+          "date": 1768527267905,
+          "items": [
+            {
+              "id": 5,
+              "name": "FIFA 2018",
+              "price": 300,
+              "discount": true,
+              "procent": 100,
+              "img": "https://library.sportingnews.com/2021-08/fifa-18-world-cup-update_1muuluhdqyeshz1y22gbiw58s.jpg",
+              "title": "Патч на FIFA 2000 года. Собери команду мечты и сразись в легендарных матчах! Голы, дриблинг и эмоции – всё как в жизни, только без травм и штрафов.",
+              "stars": 1,
+              "amount": 6,
+              "count": 1
+            },
+            {
+              "id": 7,
+              "name": "Assassin's creed Japs",
+              "discount": true,
+              "price": 300,
+              "procent": 75,
+              "img": "https://gamebomb.ru/files/galleries/001/7/79/427100.jpg",
+              "title": "Погрузись в мир интриг и тайн. Паркур, скрытность, повестка и исторические события по мнению Ubisoft и секретных документов. Приключения ждут тебя!",
+              "stars": 3,
+              "amount": 5,
+              "count": 1
+            },
+            {
+              "id": 11,
+              "name": "HyperX Cloud Core",
+              "price": 5490,
+              "discount": true,
+              "procent": 15,
+              "img": "https://cache3.youla.io/files/images/780_780/59/bd/59bd004dc15ae3a723764673.jpg",
+              "title": "Проводные игровые наушники с отличным микрофоном и объемным звуком.",
+              "stars": 10,
+              "amount": 120,
+              "__category": "headphones",
+              "__brand": "computer",
+              "count": 18
+            }
+          ],
+          "total": 84072
+        },
+        {
+          "id": "order_1768605746860",
+          "date": 1768605746860,
+          "items": [
+            {
+              "id": 5,
+              "name": "FIFA 2018",
+              "price": 300,
+              "discount": true,
+              "procent": 100,
+              "img": "https://library.sportingnews.com/2021-08/fifa-18-world-cup-update_1muuluhdqyeshz1y22gbiw58s.jpg",
+              "title": "Патч на FIFA 2000 года. Собери команду мечты и сразись в легендарных матчах! Голы, дриблинг и эмоции – всё как в жизни, только без травм и штрафов.",
+              "stars": 1,
+              "amount": 6,
+              "count": 1
+            },
+            {
+              "id": 7,
+              "name": "Assassin's creed Japs",
+              "discount": true,
+              "price": 300,
+              "procent": 75,
+              "img": "https://gamebomb.ru/files/galleries/001/7/79/427100.jpg",
+              "title": "Погрузись в мир интриг и тайн. Паркур, скрытность, повестка и исторические события по мнению Ubisoft и секретных документов. Приключения ждут тебя!",
+              "stars": 3,
+              "amount": 5,
+              "__category": "videogames",
+              "__brand": "Ubisoft",
+              "count": 5
+            }
+          ],
+          "total": 375
+        }
+      ],
+      "createdAt": 1710000000000
     },
     {
       "id": "2",
@@ -280,20 +310,7 @@
       "login": "developer",
       "password": "12Kaloed!",
       "role": "developer",
-      "cart": [
-        {
-          "id": 11,
-          "name": "HyperX Cloud Core",
-          "price": 5490,
-          "discount": true,
-          "procent": 15,
-          "img": "https://cache3.youla.io/files/images/780_780/59/bd/59bd004dc15ae3a723764673.jpg",
-          "title": "Проводные игровые наушники с отличным микрофоном и объемным звуком.",
-          "stars": 10,
-          "amount": 120,
-          "count": 1
-        }
-      ],
+      "cart": [],
       "favorites": [],
       "orders": []
     },
@@ -311,45 +328,66 @@
       "cart": [],
       "favorites": [],
       "orders": [],
-      "banUntil": 1768253608410,
-      "banReason": "Теперь от Developer",
+      "banUntil": 1768605236851,
+      "banReason": "Проверка!",
       "muteUntil": 1768253555057,
       "muteReason": "Показательно мут даю тебе!"
     },
     {
-      "id": 1768261254407,
+      "id": "130f",
       "role": "user",
-      "password": "12345678L!",
-      "login": "11",
-      "age": 12,
-      "lastName": "11",
-      "firstName": "11",
-      "cart": [],
-      "favorites": [],
-      "orders": [],
-      "createdAt": 1768261254407
-    },
-    {
-      "id": 1768274775930,
-      "role": "user",
-      "password": "12345678L!",
+      "password": "12Kaloed!",
       "login": "12",
       "age": 12,
       "lastName": "12",
       "firstName": "12",
       "cart": [],
-      "favorites": [],
-      "orders": [],
-      "createdAt": 1768274775930
+      "favorites": [
+        {
+          "id": 5,
+          "name": "FIFA 2018",
+          "price": 300,
+          "discount": true,
+          "procent": 100,
+          "img": "https://library.sportingnews.com/2021-08/fifa-18-world-cup-update_1muuluhdqyeshz1y22gbiw58s.jpg",
+          "title": "Патч на FIFA 2000 года. Собери команду мечты и сразись в легендарных матчах! Голы, дриблинг и эмоции – всё как в жизни, только без травм и штрафов.",
+          "stars": 1,
+          "amount": 6
+        }
+      ],
+      "orders": [
+        {
+          "id": "order_1768589710053",
+          "date": 1768589710053,
+          "items": [
+            {
+              "id": 5,
+              "name": "FIFA 2018",
+              "price": 300,
+              "discount": true,
+              "procent": 100,
+              "img": "https://library.sportingnews.com/2021-08/fifa-18-world-cup-update_1muuluhdqyeshz1y22gbiw58s.jpg",
+              "title": "Патч на FIFA 2000 года. Собери команду мечты и сразись в легендарных матчах! Голы, дриблинг и эмоции – всё как в жизни, только без травм и штрафов.",
+              "stars": 1,
+              "amount": 6,
+              "count": 1
+            }
+          ],
+          "total": 0
+        }
+      ],
+      "createdAt": 1768589701904,
+      "banUntil": 1768606040709,
+      "banReason": "111111"
     },
     {
-      "id": "51e8",
-      "role": "user",
-      "password": "12345678L!",
-      "login": "12",
-      "age": 12,
-      "lastName": "12",
-      "firstName": "12",
+      "id": "7378",
+      "role": "admin",
+      "password": "12Kaloed!",
+      "login": "1234",
+      "age": 14,
+      "lastName": "1234",
+      "firstName": "1234",
       "cart": [
         {
           "id": 5,
@@ -377,46 +415,28 @@
           "amount": 6
         }
       ],
-      "orders": [],
-      "createdAt": 1768274912113
-    },
-    {
-      "id": "f99b",
-      "role": "user",
-      "password": "12345678L!",
-      "login": "123",
-      "age": 12,
-      "lastName": "123",
-      "firstName": "123",
-      "cart": [
+      "orders": [
         {
-          "id": 5,
-          "name": "FIFA 2018",
-          "price": 300,
-          "discount": true,
-          "procent": 100,
-          "img": "https://library.sportingnews.com/2021-08/fifa-18-world-cup-update_1muuluhdqyeshz1y22gbiw58s.jpg",
-          "title": "Патч на FIFA 2000 года. Собери команду мечты и сразись в легендарных матчах! Голы, дриблинг и эмоции – всё как в жизни, только без травм и штрафов.",
-          "stars": 1,
-          "amount": 6,
-          "count": 1
+          "id": "order_1768605254280",
+          "date": 1768605254280,
+          "items": [
+            {
+              "id": 5,
+              "name": "FIFA 2018",
+              "price": 300,
+              "discount": true,
+              "procent": 100,
+              "img": "https://library.sportingnews.com/2021-08/fifa-18-world-cup-update_1muuluhdqyeshz1y22gbiw58s.jpg",
+              "title": "Патч на FIFA 2000 года. Собери команду мечты и сразись в легендарных матчах! Голы, дриблинг и эмоции – всё как в жизни, только без травм и штрафов.",
+              "stars": 1,
+              "amount": 6,
+              "count": 1
+            }
+          ],
+          "total": 0
         }
       ],
-      "favorites": [
-        {
-          "id": 5,
-          "name": "FIFA 2018",
-          "price": 300,
-          "discount": true,
-          "procent": 100,
-          "img": "https://library.sportingnews.com/2021-08/fifa-18-world-cup-update_1muuluhdqyeshz1y22gbiw58s.jpg",
-          "title": "Патч на FIFA 2000 года. Собери команду мечты и сразись в легендарных матчах! Голы, дриблинг и эмоции – всё как в жизни, только без травм и штрафов.",
-          "stars": 1,
-          "amount": 6
-        }
-      ],
-      "orders": [],
-      "createdAt": 1768477516546
+      "createdAt": 1768605247048
     }
   ]
 }

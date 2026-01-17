@@ -12,6 +12,7 @@ import {
 } from '../../actions'
 import { axiosGetInternetShop } from '../../components/components-internetShop/axios-get-internetShop'
 import styles from './InternetShop.module.css'
+import { isBanned } from '../../App-main/internet-shop/profile/others/punishment'
 
 export const SwiperInternetShop = ({ onSelectProduct }) => {
   const dispatch = useDispatch()
@@ -19,6 +20,7 @@ export const SwiperInternetShop = ({ onSelectProduct }) => {
   const { shopList, isLoading, error } = useSelector(
     state => state.shopState
   )
+  const banned = isBanned(user)
 
   useEffect(() => {
     dispatch(axiosGetInternetShop())
@@ -26,17 +28,17 @@ export const SwiperInternetShop = ({ onSelectProduct }) => {
 
   const products = shopList?.[0] || {}
 
-  const addToCart = item => {
-    if (!user) return
+const addToCart = item => {
+  if (!user || banned) return
 
-    const exists = user.cart.some(i => i.id === item.id)
+  const exists = user.cart.some(i => i.id === item.id)
 
-    const newCart = exists
-      ? user.cart
-      : [...user.cart, { ...item, count: 1 }]
+  const newCart = exists
+    ? user.cart
+    : [...user.cart, { ...item, count: 1 }]
 
-    dispatch(syncCart(user.id, newCart))
-  }
+  dispatch(syncCart(user.id, newCart))
+}
 
   // товары со скидкой
   const discountItems = useMemo(() => {
@@ -98,10 +100,13 @@ export const SwiperInternetShop = ({ onSelectProduct }) => {
                     onClick={e => e.stopPropagation()}
                   >
                     <button
-                    className={styles.iconBtn}
-                    title="В корзину"
-                    onClick={() => addToCart(item)}
-                  >
+  className={styles.iconBtn}
+  title={
+    banned ? 'Вы забанены' : 'В корзину'
+  }
+  disabled={banned}
+  onClick={() => addToCart(item)}
+>
                     {inCart ? '✅' : '🛒'}
                   </button>
 

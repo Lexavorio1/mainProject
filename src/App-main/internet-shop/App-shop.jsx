@@ -1,5 +1,6 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { BanBanner } from '../../actions'
 import { useDispatch } from 'react-redux'
 import { useAuth } from '../../components'
 import { axiosGetUsersInternetShop } from '../../components'
@@ -112,6 +113,8 @@ export const AppInternetShop = () => {
       ) : (
         <Outlet />
       )}
+
+      <BanBanner />
     </div>
   )
 }

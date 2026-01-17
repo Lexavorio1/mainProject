@@ -8,28 +8,28 @@ export const useAuth = () => {
     state => state.authUserShopState
   )
 
-  /* ===== АВТОВХОД ===== */
+  /* ===== АВТОВХОД (ОДИН РАЗ) ===== */
   useEffect(() => {
-    const savedUser =
+    if (isAuth) return
+
+    const saved =
       localStorage.getItem('authUser') ||
       sessionStorage.getItem('authUser')
 
-    if (savedUser) {
-      dispatch(authLogin(JSON.parse(savedUser)))
+    if (saved) {
+      dispatch(authLogin(JSON.parse(saved)))
     }
-  }, [dispatch])
+  }, [dispatch, isAuth])
 
   /* ===== LOGIN ===== */
   const login = (userData, remember) => {
     dispatch(authLogin(userData))
 
-    if (remember) {
-      localStorage.setItem('authUser', JSON.stringify(userData))
-      sessionStorage.removeItem('authUser')
-    } else {
-      sessionStorage.setItem('authUser', JSON.stringify(userData))
-      localStorage.removeItem('authUser')
-    }
+    const storage = remember ? localStorage : sessionStorage
+    const other = remember ? sessionStorage : localStorage
+
+    storage.setItem('authUser', JSON.stringify(userData))
+    other.removeItem('authUser')
   }
 
   /* ===== LOGOUT ===== */
@@ -38,6 +38,37 @@ export const useAuth = () => {
     localStorage.removeItem('authUser')
     sessionStorage.removeItem('authUser')
   }
+
+  /* ===== АВТОРАЗБАН ===== */
+  useEffect(() => {
+    if (!user?.banUntil || user.banUntil === 'permanent') return
+
+    if (Date.now() > user.banUntil) {
+      const updatedUser = {
+        ...user,
+        banUntil: null,
+        banReason: null,
+        banBy: null
+      }
+
+      dispatch({
+        type: 'AUTH_UPDATE_USER',
+        payload: updatedUser
+      })
+
+      if (localStorage.getItem('authUser')) {
+        localStorage.setItem(
+          'authUser',
+          JSON.stringify(updatedUser)
+        )
+      } else {
+        sessionStorage.setItem(
+          'authUser',
+          JSON.stringify(updatedUser)
+        )
+      }
+    }
+  }, [user, dispatch])
 
   return { user, isAuth, login, logout }
 }

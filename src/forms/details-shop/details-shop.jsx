@@ -6,26 +6,37 @@ import {
   toggleFavorite,
   syncCart
 } from '../../actions'
+import { isBanned } from '../../App-main/internet-shop/profile/others/punishment'
 
 export const DetailsShop = ({ product }) => {
   const dispatch = useDispatch()
   const { isAuth, user } = useAuth()
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
   if (!product) return null
 
+  const banned = isBanned(user)
+
   const discountedPrice = product.discount
-    ? Math.round(product.price * (1 - product.procent / 100))
+    ? Math.round(
+        product.price * (1 - product.procent / 100)
+      )
     : product.price
 
-  const inCart = user?.cart?.some(i => i.id === product.id)
-  const inFav = user?.favorites?.some(i => i.id === product.id)
+  const inCart = user?.cart?.some(
+    i => i.id === product.id
+  )
+  const inFav = user?.favorites?.some(
+    i => i.id === product.id
+  )
   const isOut = product.amount === 0
 
   const addToCart = () => {
-    if (!user) return
+    if (!user || banned) return
 
-    const exists = user.cart.find(i => i.id === product.id)
+    const exists = user.cart.find(
+      i => i.id === product.id
+    )
 
     const newCart = exists
       ? user.cart
@@ -36,17 +47,24 @@ export const DetailsShop = ({ product }) => {
 
   return (
     <div className={styles.productDetail}>
-      <button className={styles.backButtonSmall} onClick={() => navigate(-1)}>
+      <button
+        className={styles.backButtonSmall}
+        onClick={() => navigate(-1)}
+      >
         ← Назад
       </button>
 
       <h2>{product.name}</h2>
 
       {product.img && (
-        <img src={product.img} alt={product.name} width="300" height="200" />
+        <img
+          src={product.img}
+          alt={product.name}
+          width="300"
+          height="200"
+        />
       )}
 
-      <h2 className={styles.stars}>Средняя оценка: {product.stars}/10</h2>
       <div className={styles.priceBlock}>
         {product.discount ? (
           <>
@@ -70,10 +88,12 @@ export const DetailsShop = ({ product }) => {
         <div className={styles.actions}>
           <button
             className={styles.primary}
-            disabled={isOut || inCart}
+            disabled={isOut || inCart || banned}
             onClick={addToCart}
           >
-            {isOut
+            {banned
+              ? '⛔ Забанены'
+              : isOut
               ? 'Нет на складе'
               : inCart
               ? 'В корзине'
@@ -82,7 +102,9 @@ export const DetailsShop = ({ product }) => {
 
           <button
             className={`${styles.heartButton} ${styles.secondary}`}
-            onClick={() => dispatch(toggleFavorite(product))}
+            onClick={() =>
+              dispatch(toggleFavorite(product))
+            }
           >
             {inFav ? '❤️' : '🤍'}
           </button>
